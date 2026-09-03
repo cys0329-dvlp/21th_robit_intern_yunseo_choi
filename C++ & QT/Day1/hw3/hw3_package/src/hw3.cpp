@@ -59,9 +59,7 @@ int Monster::Be_Attacked()
 int flag = 0; // Attack 함수가 void 이므로 return 값을 main으로 보내서 break를 사용할 수 없으므로 flag를 전역 변수로 설정해 main에 신호 보내는 용도
 void Player::Attack(Monster &target)
 {
-	
-	int percent = rand() % 100;
-	if (percent >= 60) // 공격 성공
+	if (x == 5 && y == 4) // 공격 성공
 	{
 		MP--; // 공격 실패, 성공 여부에 상관없이 1씩 깎임
 		target.Be_Attacked(); // 공격 성공 시 target(monster)의 체력 -10
