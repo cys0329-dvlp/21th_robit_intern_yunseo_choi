@@ -1,1 +1,3 @@
-# 21th_robit_intern_-
+# 21th_robit_intern_yunseo_choi
+
+https://95mkr.tistory.com/entry/QT1
