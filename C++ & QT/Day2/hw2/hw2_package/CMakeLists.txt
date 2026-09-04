@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.19)
 
-project(Robit_intern_QT_Day2 LANGUAGES CXX)
+project(Robit_intern_QT_Day2_hw1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
