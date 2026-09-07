@@ -65,7 +65,8 @@ void MainWindow::udp_read() {
         QString senderIpStr = senderAddress.toString();
 
         // UI에 상대방 정보와 메시지 출력
-        ui->textEdit->append(QString("%1")
+        ui->plainTextEdit->appendPlainText(QString("%1")
                                  .arg(message));
     }
 }
+
