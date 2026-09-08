@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 13.0.0, 2026-09-07T23:11:45. -->
+<!-- Written by QtCreator 13.0.0, 2026-09-08T16:23:46. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -46,7 +46,7 @@
    <value type="bool" key="EditorConfiguration.SpacesForTabs">true</value>
    <value type="int" key="EditorConfiguration.TabKeyBehavior">0</value>
    <value type="int" key="EditorConfiguration.TabSize">8</value>
-   <value type="bool" key="EditorConfiguration.UseGlobal">true</value>
+   <value type="bool" key="EditorConfiguration.UseGlobal">false</value>
    <value type="bool" key="EditorConfiguration.UseIndenter">false</value>
    <value type="int" key="EditorConfiguration.Utf8BomBehavior">1</value>
    <value type="bool" key="EditorConfiguration.addFinalNewLine">true</value>
@@ -83,6 +83,7 @@
     <valuelist type="QVariantList" key="ClangTools.SuppressedDiagnostics"/>
     <value type="bool" key="ClangTools.UseGlobalSettings">true</value>
    </valuemap>
+   <value type="QByteArray" key="LanguageClient.ProjectSettings"></value>
   </valuemap>
  </data>
  <data>
