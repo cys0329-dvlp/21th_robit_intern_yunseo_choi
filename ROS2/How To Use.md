@@ -11,8 +11,8 @@ cd ~/ros2_ws<br>
 4. 특정 패키지만 빌드<br>
 colcon build --packages-select ros_dd_cpp<br>
 
-5. 특정 패키지만 빌드<br>
-colcon build --packages-select ros_dd_cpp<br>
+5. 환경 설정 적용<br>
+source install/setup.bash<br>
 
 6. 패키지 확인<br>
 ros2 pkg list | grep ros_dd_cpp<br>
