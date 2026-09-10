@@ -25,7 +25,8 @@ ________________________________________________________________________________
 github에 올리는 법         -------------> if github에 프로젝트가 없다? ---Yes--> git init
                                                                  |
                                                                  ---No---> git clone
-    
+
+[git init]
 1. ros2_ws 이동 
 
 cd ~/ros2_ws
@@ -47,4 +48,35 @@ log/
 
 git status
 
-5. 
+5. 파일 추가 
+
+git add .
+
+6. 커밋
+
+git commit -m "ROS2 project initial commit"
+
+7. github 레포 생성
+
+8. github 레포랑 연결
+
+git remote add origin <GitHub_Repository_URL>
+
+9. 브랜치 이름 설정 
+
+git branch -M main
+
+10. Push
+
+git push -u origin main
+
+[git clone]
+
+1. git HTTPS 주소 복사 
+
+2. git clone 
+
+git clone [HTTPS 주소]
+
+3. git init 4번과정부터 실행
+
