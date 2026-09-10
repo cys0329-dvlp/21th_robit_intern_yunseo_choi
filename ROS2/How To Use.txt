@@ -1,18 +1,50 @@
-1. 워크스페이스의 src 폴더로 이동<br>
+1. 워크스페이스의 src 폴더로 이동
 
-cd ~/[워크스페이스 이름]/src <br>
+cd ~/[워크스페이스 이름]/src 
 
-2. ament_cmake 빌드 타입을 사용하여 C++ 패키지 생성<br>
-ros2 pkg create --build-type ament_cmake ros_dd_cpp<br>
+2. ament_cmake 빌드 타입을 사용하여 C++ 패키지 생성
+ros2 pkg create --build-type ament_cmake [원하는 패키지 이름]
 
-3. 워크스페이스 루트로 이동<br>
-cd ~/ros2_ws<br>
+3. 워크스페이스 루트로 이동
 
-4. 특정 패키지만 빌드<br>
-colcon build --packages-select ros_dd_cpp<br>
+cd ~/ros2_ws
 
-5. 환경 설정 적용<br>
-source install/setup.bash<br>
+4. 특정 패키지만 빌드(무조건 워크스페이스에서 빌드해야됨)
 
-6. 패키지 확인<br>
-ros2 pkg list | grep ros_dd_cpp<br>
+colcon build --packages-select ros_dd_cpp
+
+5. 환경 설정 적용
+source install/setup.bash
+
+6. 패키지 확인
+ros2 pkg list | grep ros_dd_cpp
+
+
+------------------------
+
+github에 올리는 법         -------------> if github에 프로젝트가 없다? ---Yes--> git init
+                                                                 |
+                                                                 ---No---> git clone
+    
+1. ros2_ws 이동 
+
+cd ~/ros2_ws
+
+2. git 저장소 만들기
+
+git init
+
+3. git ignore 만들기
+
+nano .gitignore
+
+파일 내용:
+build/
+install/
+log/
+
+4. 현재 파일 확인
+
+git status
+
+5. 
