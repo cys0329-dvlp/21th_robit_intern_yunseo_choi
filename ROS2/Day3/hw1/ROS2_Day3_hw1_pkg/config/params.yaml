@@ -1,0 +1,17 @@
+turtle_shape:
+  ros__parameters:
+
+    square_r: 0
+    square_g: 255
+    square_b: 255
+    square_width: 10
+
+    triangle_r: 255
+    triangle_g: 255
+    triangle_b: 0
+    triangle_width: 20
+
+    circle_r: 255
+    circle_g: 0
+    circle_b: 255
+    circle_width: 15
