@@ -1,0 +1,19 @@
+traffic_light:
+  ros__parameters:
+    red_time: 5.0
+    green_time: 5.0
+    yellow_time: 3.0
+
+vehicle:
+  ros__parameters:
+    speed: 2.0
+    slow_speed: 0.8
+    start_position: 0.0
+    stop_line: 10.0
+    max_position: 30.0
+    update_period: 0.1
+
+qt_simulator:
+  ros__parameters:
+    window_width: 1000
+    window_height: 600
