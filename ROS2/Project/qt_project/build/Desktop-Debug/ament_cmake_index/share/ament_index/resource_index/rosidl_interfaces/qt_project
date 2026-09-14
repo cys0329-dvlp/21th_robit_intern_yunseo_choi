@@ -1,8 +1,0 @@
-msg/SeatCommand.idl
-msg/SeatCommand.msg
-msg/SeatStatus.idl
-msg/SeatStatus.msg
-srv/GetRoute.idl
-srv/GetRoute.srv
-srv/ProcessPenalty.idl
-srv/ProcessPenalty.srv

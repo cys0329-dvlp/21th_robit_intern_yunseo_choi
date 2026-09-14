@@ -1,9 +1,0 @@
-{
-  "package_name": "qt_project",
-  "non_idl_tuples": [
-    "/home/choiyuns/ros2_ws/src/qt_project:msg/SeatStatus.msg",
-    "/home/choiyuns/ros2_ws/src/qt_project:msg/SeatCommand.msg",
-    "/home/choiyuns/ros2_ws/src/qt_project:srv/GetRoute.srv",
-    "/home/choiyuns/ros2_ws/src/qt_project:srv/ProcessPenalty.srv"
-  ]
-}
