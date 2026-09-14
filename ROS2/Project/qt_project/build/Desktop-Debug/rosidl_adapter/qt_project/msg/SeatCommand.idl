@@ -1,0 +1,16 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from qt_project/msg/SeatCommand.msg
+// generated code does not contain a copyright notice
+
+
+module qt_project {
+  module msg {
+    struct SeatCommand {
+      int32 seat_id;
+
+      boolean occupied;
+
+      boolean has_belongings;
+    };
+  };
+};

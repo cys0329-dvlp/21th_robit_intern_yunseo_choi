@@ -1,0 +1,9 @@
+[파일별 역할 정리]
+
+- seat.hpp/cpp: 좌석 객체
+- patrol_planner.hpp/cpp: 순찰 관리 핵심 로직
+- tsp_solver.hpp/cpp: TSP 알고리즘
+- patrol_planner_node: ROS publiser/subscriber/Service
+- gui_monitor_ndoe.hpp/cpp: ROS - QT 연결
+- mainwindow.hpp/cpp: GUI 동작
+- main.cpp:프로그ㅂㅁㄴ
