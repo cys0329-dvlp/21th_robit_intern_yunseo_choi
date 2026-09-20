@@ -1,0 +1,6 @@
+빌드 및 소싱 -> 카메라 작동까지 한번에 실행(밑의 명령어 복붙해서 실행)
+
+  cd ~/ros2_ws
+colcon build --packages-select camera_ui_pkg
+source install/setup.bash
+ros2 launch camera_ui_pkg camera_ui.launch.py
