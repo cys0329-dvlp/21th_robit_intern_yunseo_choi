@@ -139,7 +139,7 @@ void ColorObjectDetection::detectObjects(
             continue;
         }
 
-        cv::Rect bounding_box = ㄴcv::boundingRect(contour);
+        cv::Rect bounding_box = cv::boundingRect(contour);
 
         object_count++;
 
