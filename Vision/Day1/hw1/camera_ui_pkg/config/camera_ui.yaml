@@ -1,0 +1,19 @@
+camera_node:
+
+  ros__parameters:
+
+    camera_source: "0"
+
+
+    frame_width: 1920
+
+    frame_height: 1080
+
+    publish_rate_hz: 30.0
+
+
+ui_node:
+
+  ros__parameters:
+
+    display_rate_hz: 30.0
