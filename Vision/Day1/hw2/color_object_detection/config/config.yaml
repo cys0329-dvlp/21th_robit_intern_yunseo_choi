@@ -1,1 +1,3 @@
-image_path: "/home/choiyuns/Documents/카카오톡 받은 파일/KakaoTalk_20260918_185908846.png"
+/**:
+  ros__parameters:
+    image_path: "src/21th_robit_intern_yunseo_choi/Vision/Day1/hw2/color_object_detection/data/KakaoTalk_20260918_185908846.png"
