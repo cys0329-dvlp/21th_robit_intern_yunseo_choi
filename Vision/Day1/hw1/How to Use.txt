@@ -4,3 +4,8 @@ cd ~/ros2_ws
 colcon build --packages-select camera_ui_pkg
 source install/setup.bash
 ros2 launch camera_ui_pkg camera_ui.launch.py
+
+
+##주의 
+
+우측 상단에 카메라 모양 클릭해서 Start Replay 버튼을 누르고 시작해야 제대로 작동함
