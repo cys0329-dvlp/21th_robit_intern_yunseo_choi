@@ -12,7 +12,6 @@ cv::Mat DefineYellowBall::HSV(const cv::Mat &frame)
 
     cv::cvtColor(frame,hsv_frame,cv::COLOR_BGR2HSV); // BGR로 입력받은 이미지를 HSV로 변환
 
-    std::cout<<"HSV 변환 성공";
     return hsv_frame;
 }
 
@@ -23,7 +22,6 @@ cv::Mat DefineYellowBall::createYellowMask(const cv::Mat &hsv_frame)
 
     cv::inRange(hsv_frame,cv::Scalar(20, 100, 100),cv::Scalar(35, 255, 255),yellow_mask);
 
-    std::cout<<"yellow mask 생성 성공";
     return yellow_mask;
 }
 
@@ -36,7 +34,6 @@ cv::Mat DefineYellowBall::removeNoise(const cv::Mat &yellow_mask)
 
     cv::morphologyEx(yellow_mask,cleaned_mask,cv::MORPH_CLOSE, kernel);
 
-    std::cout<<"noise 제거 성공";
     return cleaned_mask;
 }
 
@@ -49,7 +46,6 @@ DefineYellowBall::findContours(const cv::Mat &yellow_mask)
 
     cv::findContours(yellow_mask,contours,cv::RETR_EXTERNAL,cv::CHAIN_APPROX_SIMPLE);
 
-    std::cout<<"contour 찾기 성공";
     return contours;
 }
 
@@ -86,12 +82,13 @@ YellowBallResult DefineYellowBall::detect(cv::Mat &frame)
     result.area = 0.0;
     result.bounding_box = cv::Rect();
 
+    //frame이 없으면 return 
     if (frame.empty())
     {
-        std::cout<<"frame 불러오기 실패";
         return result;
     }
 
+    //전체 과정 순서대로 실행
     cv::Mat hsv_frame = HSV(frame);
 
     cv::Mat yellow_mask = createYellowMask(hsv_frame);
@@ -102,20 +99,59 @@ YellowBallResult DefineYellowBall::detect(cv::Mat &frame)
 
     std::vector<std::vector<cv::Point>> filtered_contours = filterContours(contours);
     
-    RCLCPP_INFO(
-        rclcpp::get_logger("yellow_ball_test"),
-        "contours: %ld, filtered: %ld",
-        contours.size(),
-        filtered_contours.size()
-    );
+    if(filtered_contours.empty())
+    {
+        return result;
+    }
+
+    double largest_area = 0.0;
+    std::vector<cv::Point> largest_contour;
 
 
     for (const auto &contour : filtered_contours)
     {
-        cv::Rect bounding_box = cv::boundingRect(contour);
+        double area = cv::contourArea(contour);
 
-        cv::rectangle(frame,bounding_box,cv::Scalar(0, 255, 0),3);
+        if (area > largest_area)
+        {
+            largest_area = area;
+            largest_contour = contour;
+        }
     }
     
+    if (largest_contour.empty())
+    {
+        return result;
+    }
+
+    cv::Rect bounding_box = cv::boundingRect(largest_contour);
+
+    cv::Point2f center;
+    float radius;
+        
+    cv::minEnclosingCircle(largest_contour,center,radius);
+        
+    result.detected = true;
+    result.center = cv::Point(static_cast<int>(center.x),static_cast<int>(center.y));
+        
+    result.radius = radius;
+    result.area = largest_area;
+    result.bounding_box = bounding_box;
+
+    RCLCPP_INFO_ONCE(
+    rclcpp::get_logger("yellow_ball_test"),
+    "Ball detected - center: (%d, %d), radius: %.2f, area: %.2f, bbox: (%d, %d, %d, %d)",
+    result.center.x,
+    result.center.y,
+    result.radius,
+    result.area,
+    result.bounding_box.x,
+    result.bounding_box.y,
+    result.bounding_box.width,
+    result.bounding_box.height
+    );
+
+    cv::rectangle(frame,bounding_box,cv::Scalar(0, 255, 0),3);
+
     return result;
 }

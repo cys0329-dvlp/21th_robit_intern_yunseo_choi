@@ -8,16 +8,28 @@ class DistanceCalculator
 public:
     DistanceCalculator();
 
-    double calculateDistance(
-        const YellowBallResult &ball
+    double calculateDistanceA(
+        double REAL_ball_size,
+        double camera_ball_size,
+        double fx
+    );
+
+    double calculateDistanceB(
+        double h,
+        double theta,
+        double v,
+        double fy,
+        double cy
     );
 
 private:
 
-    float REAL_ball_size;
-    float camera_ball_size;
-    // 거리 계산에 필요한 값
-    // 예: 실제 공 크기, 카메라 관련 값 등
+    double REAL_ball_size; //공식에서의 W
+    double camera_ball_size; // 공식에서의 w
+    
+    double Distance; //공식에서의 Z
+    double fx; // 공식에서의 fx
+
 
 };
 

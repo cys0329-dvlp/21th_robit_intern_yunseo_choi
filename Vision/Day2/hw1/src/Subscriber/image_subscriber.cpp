@@ -5,19 +5,64 @@
 ImageSubscriber::ImageSubscriber()
     : Node("image_subscriber") //Node 이름: image_subscriber
 {
-    image_subscription_ = this->create_subscription<sensor_msgs::msg::Image>(
-        "/camera1/camera/compressed_image", //구독할 ROS 토픽 이름
-        10,
-        std::bind( //메시지가 들어왔을 때 어떤 함수를 실행할지 지정하는 부분: ROS 메시지 도착 -> imagecallback 실행
-            &ImageSubscriber::imageCallback,
-            this,
-            std::placeholders::_1
-        )
-    );
 
     RCLCPP_INFO(this->get_logger(),"이미지 구독 시작");
 }
 
+void ImageSubscriber::startSubscription()
+{
+    if (image_subscription_)
+    {
+        RCLCPP_INFO(
+            this->get_logger(),
+            "Image subscription is already active"
+        );
+
+        return;
+    }
+
+    image_subscription_ =
+        this->create_subscription<sensor_msgs::msg::Image>(
+            "/camera1/camera/compressed_image",
+            10,
+            std::bind(
+                &ImageSubscriber::imageCallback,
+                this,
+                std::placeholders::_1
+            )
+        );
+
+    RCLCPP_INFO(
+        this->get_logger(),
+        "Image subscription started"
+    );
+}
+
+void ImageSubscriber::stopSubscription()
+{
+    if (!image_subscription_)
+    {
+        RCLCPP_INFO(
+            this->get_logger(),
+            "Image subscription is already stopped"
+        );
+
+        return;
+    }
+
+    image_subscription_.reset();
+    frame_.release();
+
+    RCLCPP_INFO(
+        this->get_logger(),
+        "Image subscription stopped"
+    );
+}
+
+bool ImageSubscriber::isSubscribed() const
+{
+    return image_subscription_ != nullptr;
+}
 
 //카메라 영상 들어오면 호출되는 함수
 void ImageSubscriber::imageCallback(

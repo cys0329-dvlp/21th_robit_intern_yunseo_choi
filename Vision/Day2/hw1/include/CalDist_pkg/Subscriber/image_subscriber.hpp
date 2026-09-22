@@ -15,7 +15,12 @@ public:
 
     ImageSubscriber();
 
+    void startSubscription();
+    void stopSubscription();
+    bool isSubscribed() const;
+
     const cv::Mat &getFrame() const; // OpneCV 영상을 QT UI로 가져갈 수 있게함
+
 
 private:
     void imageCallback(const sensor_msgs::msg::Image::SharedPtr msg);
