@@ -19,7 +19,7 @@ include_directories(
 add_executable(CalDist_node
   src/main.cpp
   src/UI/mainwindow.cpp
-  src/mainwindow.ui
+  src/UI/mainwindow.ui
 
   include/CalDist_pkg/UI/mainwindow.hpp
 
