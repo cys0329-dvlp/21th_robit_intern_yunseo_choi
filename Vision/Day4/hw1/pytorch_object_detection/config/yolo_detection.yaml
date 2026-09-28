@@ -1,0 +1,11 @@
+inference_node:
+  ros__parameters:
+    target_classes: [2, 39, 41, 66, 67, 73, 74]
+    class_names: [
+                  "2:car", 
+                  "39:bottle", 
+                  "41:cup", 
+                  "66:keyboard",
+                  "67:cellphone",
+                  "73:book",
+                  "74:clock" ]

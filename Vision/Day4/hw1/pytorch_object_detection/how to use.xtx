@@ -1,0 +1,17 @@
+빌드 
+
+cd ~/ros2_ws
+colcon build --packages-select pytorch_object_detection
+source install/setup.bash
+
+터미널 1
+
+source /opt/ros/jazzy/setup.bash
+source ~/ros2_ws/install/setup.bash
+ros2 run pytorch_object_detection camera_node
+
+터미널2
+
+source /opt/ros/jazzy/setup.bash
+source ~/ros2_ws/install/setup.bash
+ros2 run pytorch_object_detection inference_node
