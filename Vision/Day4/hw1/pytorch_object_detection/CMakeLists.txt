@@ -12,6 +12,7 @@ find_package(OpenCV REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(cv_bridge REQUIRED)
 find_package(OpenVINO REQUIRED)
+find_package(ament_index_cpp REQUIRED)
 
 include_directories(
   include
@@ -35,6 +36,7 @@ ament_target_dependencies(inference_node
   rclcpp
   sensor_msgs
   cv_bridge
+  ament_index_cpp
 )
 
 target_link_libraries(camera_node
@@ -53,7 +55,7 @@ install(TARGETS
 )
 
 install(
-  DIRECTORY config launch
+  DIRECTORY config launch models
   DESTINATION share/${PROJECT_NAME}
 )
 

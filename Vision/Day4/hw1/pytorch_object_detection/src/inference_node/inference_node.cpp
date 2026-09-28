@@ -7,6 +7,7 @@
 #include <openvino/openvino.hpp> //OpenVINO C++ API를 사용하기 위한 헤더
 #include <algorithm>
 #include <chrono>
+#include <ament_index_cpp/get_package_share_directory.hpp>
 
 cv::Mat InferenceNode::letterbox(
     const cv::Mat& image, 
@@ -97,7 +98,12 @@ InferenceNode::InferenceNode()
     }
 
     //OpenVINO가 읽을 .xml파일 경로 지정
-    std::string model_path = "/home/choiyuns/ros2_ws/src/pytorch_object_detection/models/yolo26n.xml";
+    std::string package_path =
+    ament_index_cpp::get_package_share_directory(
+        "pytorch_object_detection"
+    );
+
+    std::string model_path = package_path + "/models/yolo26n.xml";
     
     std::shared_ptr<ov::Model> model = core_.read_model(model_path);
 
