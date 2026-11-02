@@ -68,7 +68,7 @@ class QAgent():
         for line in grid:
             print(" | ".join(line))
 
-env = gym.make("FrozenLake-v1", is_slippery = True) #render_mode = "human"
+env = gym.make("FrozenLake-v1", is_slippery = False) #render_mode = "human"
 agent = QAgent() # agent 만들기
 
 MAXEPISODENUM = 5000
@@ -169,7 +169,7 @@ plt.show()
 agent.show_table()
 
 ##---------------------test----------------
-env2 = gym.make("FrozenLake-v1", is_slippery = True, render_mode = "human")
+env2 = gym.make("FrozenLake-v1", is_slippery = False, render_mode = "human")
 agent.q_table = np.load("q_table.npy") #평가 전 저장된 Q-table 불러오기
 agent.eps = 0.0 #테스트할 때는 예외 발생하면 안되니까 엡실론 0으로 설정 
 
