@@ -28,14 +28,15 @@ class Config:
     episodes: int = 1_000
     eval_interval: int = 25
     eval_episodes: int = 50
-    replay_capacity: int = 50_000
-    batch_size: int = 64
+    replay_capacity: int = 300_000
+    batch_size: int = 128
     warmup_steps: int = 1_000
-    gamma: float = 0.99
-    learning_rate: float = 1e-3
-    target_update_interval: int = 1_000
+    gamma: float = 0.98
+    learning_rate: float = 1e-4
+    # Soft update(Polyak) 계수. 매 optimizer update마다 target을 tau만큼 online 쪽으로 이동.
+    tau: float = 0.005
     epsilon_start: float = 1.0
-    epsilon_end: float = 0.01
+    epsilon_end: float = 0.05
     epsilon_decay_steps: int = 20_000
     moving_average_window: int = 50
     output_dir: Path = Path(__file__).resolve().parent / "outputs"
@@ -49,9 +50,9 @@ class QNetwork(nn.Module):
         self.layers = nn.Sequential(
             nn.Linear(4, 64),
             nn.ReLU(),
-            nn.Linear(64,32),
+            nn.Linear(64,64),
             nn.ReLU(),
-            nn.Linear(32, 2),
+            nn.Linear(64, 2),
         )
 
     def forward(self, state: torch.Tensor) -> torch.Tensor:
@@ -167,9 +168,13 @@ def update_network(
     predictions = online_network(states_tensor).gather(
         1, actions_tensor.unsqueeze(1)
     ).squeeze(1)
-    # Target network는 no_grad로 고정하며, 실제 종료(terminated)에서만 bootstrap을 제거.
+    # Double DQN: 다음 행동은 online network로 고르고, 그 가치는 target network로 평가한다.
+    # 실제 종료(terminated)에서만 bootstrap을 제거한다.
     with torch.no_grad():
-        next_values = target_network(next_states_tensor).max(dim=1).values
+        next_actions = online_network(next_states_tensor).argmax(dim=1, keepdim=True)
+        next_values = target_network(next_states_tensor).gather(
+            1, next_actions
+        ).squeeze(1)
         targets = rewards_tensor + config.gamma * next_values * (
             1.0 - terminated_tensor
         )
@@ -180,6 +185,17 @@ def update_network(
     nn.utils.clip_grad_norm_(online_network.parameters(), max_norm=10.0)
     optimizer.step()
     return float(loss.item())
+
+
+def soft_update(
+    online_network: QNetwork, target_network: QNetwork, tau: float
+) -> None:
+    # Polyak averaging: target <- (1 - tau) * target + tau * online
+    with torch.no_grad():
+        for target_param, online_param in zip(
+            target_network.parameters(), online_network.parameters()
+        ):
+            target_param.mul_(1.0 - tau).add_(online_param, alpha=tau)
 
 
 def save_plots(
@@ -325,8 +341,8 @@ def run(config: Config) -> None:
                     )
                     loss_updates.append(optimizer_updates)
                     losses.append(loss_value)
-                    if optimizer_updates % config.target_update_interval == 0:
-                        target_network.load_state_dict(online_network.state_dict())
+                    # Soft update: 매 optimizer update 직후 target을 조금씩 갱신.
+                    soft_update(online_network, target_network, config.tau)
 
                 epsilon_steps.append(global_env_step)
                 epsilons.append(max(
